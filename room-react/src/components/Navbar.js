@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
 import { Dropdown } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
 
 import { floorOptions } from "../utils/utils";
 import api from '../api';
-// import * as userActions from '../actions/auth';
 
 const mp = new Map();
 mp.set("blue","#4e73be");
@@ -26,34 +24,27 @@ function Navbar(props) {
 			)
 	};
 	useEffect(() => {
-		// console.log("CHANGED!!!", props);
-		// document.getElementById("floor").value = "green";
 		if(props.userTheme) {			
 			handleLoginChange(props.userTheme);
 			let o = Object.entries(props.userTheme);
-			const x = async () => {
+			const lazy = async () => {
 				await handleColorChange(null, {name: o[0][0], value: o[0][1]},1);
 				await handleColorChange(null, {name: o[1][0], value: o[1][1]},1);
 				await handleColorChange(null, {name: o[2][0], value: o[2][1]},1);
 				await handleColorChange(null, {name: o[3][0], value: o[3][1]},1);
 			}
-			x();
+			lazy();
 		}
 	},[props.userTheme]);
 	const handleLoginChange = (theme) => {
-		console.log(theme);
 		setColors({ colorData: {floor: theme.floor, sofa: theme.sofa, wall: theme.wall, curtain: theme.curtain }});
 	}
 	const handleChange = e => {
 		setUser({userData: {...user.userData ,[e.target.name]: e.target.value}});
-		// console.log(user);
 	};
 	const handleColorChange = (e, val, handler) => {
-		console.log("val", val);
 		if(handler !== 1)
 			setColors({ colorData: { ...colors.colorData, [val.name]: val.value } });
-		// console.log("color:",colors);
-		// console.log(colors.colorData[val.name]);
 		if(val.name === "floor") {
 			document.getElementsByClassName('floor')[0].style.background=mp.get(val.value);
 		} else if(val.name === "sofa") {
@@ -73,7 +64,6 @@ function Navbar(props) {
 			else
 				document.getElementsByClassName('wall')[0].style.background=darkerColor
 		} else if(val.name === "curtain") {
-			// [].forEach.call(document.getElementsByClassName('curtain_rectangle0'), e => document.getElementsByClassName('wall')[0].style.background=mp.get(val.value));
 			if(val.value === "green" ) {
 				[].forEach.call(document.getElementsByClassName('curtain_rectangle0'), e => e.style.background="#5e803f");
 				document.getElementsByClassName('curtain_sheet')[0].style.background="#7eaa55";
@@ -86,21 +76,13 @@ function Navbar(props) {
 	}
 	const onSubmit = e => {
 		e.preventDefault();
-		// console.log("WHAT IS USER:",user)
 		props.loginAction(user);
 	};
 	const onSaveColors = e => {
 		e.preventDefault();		
-		console.log("colors",colors);
 		let email = props.getEmail;
 		api.theme.saveTheme({email,colors});
-		// props.loginAction(user);
 	};	
-	// console.log(mp);
-
-	 // props.state ? ( <div>WORKED?</div> ) : ( <div>NO WORK?</div> );
-	 // console.log(props.user);
-	 // console.log(colors.colorData.floor)
 	return(
 		<aside className="nav">			
 			<h1 style={{display: 'flex',justifyContent: 'center'}}>User</h1>
@@ -136,23 +118,8 @@ function Navbar(props) {
 	) : ( 
 	<button onClick={() => props.logoutAction()} type="button" className="ml-1 mt-2 btn btn-primary">Logout</button>
 	)}				
-{/*				<button type="submit" className="ml-1 mt-2 btn btn-primary">Submit</button>
-				<Link to="/signup"><button className="ml-1 mt-2 btn btn-secondary">Sign up</button></Link>*/}
 
 			</form>
-{/*			<form onChange={handleChange} onSubmit={onSubmit} >
-				<div className="form-group">
-					<label htmlFor="userEmail" className="txtRobo">User's Email</label>
-					<input name="userEmail" type='text' className="form-control" placeholder="Enter User's Email'" />
-				</div>
-				<span className="form-group">
-					<label htmlFor="inputPassword" className="txtRobo">Password</label>
-					<input name="userPassword" type='password' className="form-control" placeholder="Enter Password" />
-				</span>				
-				<button type="submit" className="ml-1 mt-2 btn btn-primary">Submit</button>
-				<Link to="/signup"><button className="ml-1 mt-2 btn btn-secondary">Sign up</button></Link>
-
-			</form>*/}
 			<br/>
 			Floor Color
 			<form onSubmit={onSaveColors} >

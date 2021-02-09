@@ -1,15 +1,5 @@
-html {
-	// font-size: 62.5%;	
-	// border: 1px solid black;
-}
-
-// .txtRobo {
-// 	font-family: 'Roboto', sans-serif;
-// }
-
 .pattern
 {
-	// border: 1px solid green;
 	margin-left: 25%;
     width: 50%;
 
@@ -23,10 +13,8 @@ html {
 	width: 100%;
 	height: 50vh;
 	background: black;
-	// transform-origin: center;
 	background-size: 100px 100px;
 	background-position: 0 0, 0 50px, 50px, -50px;
-	// transform: rotateX(83deg);
 }
 
 .pattern .face.floor {    

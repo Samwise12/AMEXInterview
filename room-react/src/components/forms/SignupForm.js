@@ -34,7 +34,6 @@ function SignupForm (props) {
 		}
 
 		console.log("HIT!!?", errors) 
-		// props.loginAction(user);
 	};	
 	const validate = data => {
 		const errors = {};
