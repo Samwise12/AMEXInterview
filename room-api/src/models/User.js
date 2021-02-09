@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import uniqueValidator from 'mongoose-unique-validator';
 
 const schema = new mongoose.Schema({

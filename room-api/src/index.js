@@ -19,7 +19,7 @@ import users from './routes/users';
 import auth from './routes/auth';
 
 const app = express();
-// app.use(morgan('combined'));
+app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(cors());
 
